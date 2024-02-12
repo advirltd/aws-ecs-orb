@@ -254,6 +254,7 @@ jobs:
             - aws-cli/setup:
                 profile_name: << parameters.profile_name >>
                 role_arn: << parameters.role_arn >>
+                region: << parameters.region >>
             - aws-ecs/update_service:
                 family: "<< parameters.family_name >>"
                 service_name: "<< parameters.service_name >>"
@@ -262,6 +263,7 @@ jobs:
                 container_env_var_updates: 'container=<< parameters.aws-resource-name-prefix >>-service,name=VERSION_INFO,value="${CIRCLE_SHA1}_${CIRCLE_BUILD_NUM}",container=<< parameters.aws-resource-name-prefix >>-service,name=BUILD_DATE,value=$(date)'
                 verify_revision_is_deployed: true
                 fail_on_verification_timeout: false
+                region: << parameters.region >>
                 profile_name: "<<parameters.profile_name>>"
             - test-deployment:
                 service_name: "<< parameters.aws-resource-name-prefix >>-service"
